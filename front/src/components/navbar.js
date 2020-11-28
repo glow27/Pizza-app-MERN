@@ -6,34 +6,44 @@ import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
 import Cart from './cart';
 
+import {changeCurrency, cartCurrency} from '../redux/actionCreator';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
+import { useDispatch, useSelector } from 'react-redux';
 
 const useStyles = makeStyles({
-  list: {
-    width: '30vw',
-  },
+  
   navbar: {
     backgroundColor: 'rgb(255, 225, 89)',
     height: '10vh',
     display: 'flex',
     justifyContent: 'space-between',
-    padding: '0 2%',
     marginBottom: '1rem',
+    position: 'fixed',
+    width: '100%',
+    zIndex: 100
   },
   btn: {
     height: '100%',
+    width: '6rem',
   },
   radio: {
     verticalAlign: 'middle'
+  },
+  logo: {
+    marginLeft: '2rem'
   }
 });
 
 export default function NavDrawer() {
   const classes = useStyles();
   const [cartOpen, setCartOpen] = useState(false);
+  const dispatch = useDispatch()
+  const cart = useSelector(state => state.cart);
+  const usd = useSelector(state => state.pizza.usd)
+  const total = cart.reduce((a,b) => a + b.qty * b.price , 0)
 
   const toggleDrawer = (open) => (event) => {
     setCartOpen(open);
@@ -43,11 +53,13 @@ export default function NavDrawer() {
 
   return (
     <div className={classes.navbar}>
-      <h2>Super Pizza</h2>
+      <h2 className={classes.logo}>Super Pizza</h2>
       <div>
 
       <FormControl className={classes.radio}>
-      <RadioGroup row aria-label="position" name="position" defaultValue="usd">
+      <RadioGroup row aria-label="position" name="position" defaultValue="usd" onChange={(e) => {
+        dispatch(changeCurrency()); dispatch(cartCurrency(e.target.value))
+      }}>
       <FormControlLabel value="usd" control={<Radio color="default" />} label="usd" />
       <FormControlLabel value="eur" control={<Radio color="default" />} label="eur" />
       </RadioGroup>
@@ -55,7 +67,7 @@ export default function NavDrawer() {
 
         <Button className={classes.btn} onClick={toggleDrawer(true)}>
           <ShoppingCartOutlinedIcon />
-          {`(0)`}
+          ({total.toFixed(2)}{usd ? '$' : '€'})
         </Button>
         <Drawer open={cartOpen} onClose={toggleDrawer(false)}>
           <Cart/>
