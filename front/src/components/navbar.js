@@ -12,6 +12,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles({
   
@@ -33,13 +34,14 @@ const useStyles = makeStyles({
     verticalAlign: 'middle'
   },
   logo: {
-    marginLeft: '2rem'
+    margin: '0 2rem'
   }
 });
 
 export default function NavDrawer() {
   const classes = useStyles();
   const [cartOpen, setCartOpen] = useState(false);
+  const history = useHistory();
   const dispatch = useDispatch()
   const cart = useSelector(state => state.cart);
   const usd = useSelector(state => state.pizza.usd)
@@ -53,7 +55,9 @@ export default function NavDrawer() {
 
   return (
     <div className={classes.navbar}>
+      <Button onClick={() => {history.push('/')}}>
       <h2 className={classes.logo}>Super Pizza</h2>
+      </Button>
       <div>
 
       <FormControl className={classes.radio}>
@@ -70,9 +74,9 @@ export default function NavDrawer() {
           ({total.toFixed(2)}{usd ? '$' : '€'})
         </Button>
         <Drawer open={cartOpen} onClose={toggleDrawer(false)}>
-          <Cart/>
+          <Cart close={toggleDrawer}/>
         </Drawer>
-        <Button className={classes.btn}>
+        <Button  onClick={() => {history.push('/auth')}} className={classes.btn}>
           <AccountCircleOutlinedIcon />
         </Button>
       </div>

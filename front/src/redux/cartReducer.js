@@ -1,4 +1,4 @@
-import { ADD_PIZZA, EDIT_CART, CART_CURRENCY, DEL_PIZZA } from './actionTypes';
+import { ADD_PIZZA, EDIT_CART, CART_CURRENCY, DEL_PIZZA, MAKE_ORDER } from './actionTypes';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default function(state = [], action) {
@@ -20,6 +20,8 @@ export default function(state = [], action) {
     case CART_CURRENCY:
       if (action.payload !== 'usd') return state.map(el =>  {return {...el, price: el.price*0.85}})
       return state.map(el => {return {...el, price: el.price/0.85}})
+    case MAKE_ORDER:
+      return []
     default:
       return state;
   }
