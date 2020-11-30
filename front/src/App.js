@@ -5,6 +5,7 @@ import { store } from './redux/store';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Order from './components/order';
+import History from './components/history';
 import PrivateRoute from './components/privateRoute';
 
 function App() {
@@ -17,7 +18,9 @@ function App() {
             <Route path="/auth">
               <Auth />
             </Route>
-            <PrivateRoute path="/history"></PrivateRoute>
+            <PrivateRoute path="/history">
+              <History/>
+            </PrivateRoute>
             <Route path="/order">
               <Order />
             </Route>

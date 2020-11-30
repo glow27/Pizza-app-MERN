@@ -7,7 +7,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { makeOrder } from '../../redux/actionCreator';
 import { useHistory } from 'react-router-dom';
 import MuiAlert from '@material-ui/lab/Alert';
-import { Button, Grid, Typography, Snackbar } from '@material-ui/core';
+import { Button, Grid, Typography, Modal } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 
 const schema = yup.object().shape({
@@ -38,6 +38,12 @@ const useStyles = makeStyles((theme) => ({
     width: '30vw',
     marginTop: '1rem',
   },
+  modal: {
+    display: 'flex',
+    alignItems: 'start',
+    justifyContent: 'center',
+    paddingTop: '50px',
+  },
 }));
 
 export const OrderForm = () => {
@@ -46,23 +52,42 @@ export const OrderForm = () => {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const cart = useSelector((state) => state.cart.list);
+  const user = useSelector(state => state.user)
+  const usd = useSelector((state) => state.cart.usd);
   const { register, errors, handleSubmit, formState } = useForm({
     mode: 'onChange',
     resolver: yupResolver(schema),
   });
 
   const { isValid } = formState;
-  const onSubmit = (data) => {
-    dispatch(makeOrder());
-    history.push('/');
+
+  const onSubmit = async (data) => {
+    if (!user) return setOpen(true);
+    
+    const respons = await fetch('/orders', {
+      method: 'POST',
+      body: JSON.stringify([...cart, usd]),
+      headers: { 'Content-type': 'Application/json' },
+    })
+
+    if (respons.status === 200) {
+      return setOpen(true)
+    }
+
   };
+
+  const handleOrder = () => {
+    dispatch(makeOrder());
+    console.log('ok');
+    history.push('/');
+  }
 
   return (
     <>
       <form
         noValidate
         className={styles.root}
-        onSubmit={handleSubmit(() => setOpen(true))}
+        onSubmit={handleSubmit(onSubmit)}
       >
         <Typography component="h1" variant="h5" className={styles.header}>
           Delivery details
@@ -72,6 +97,7 @@ export const OrderForm = () => {
             <Input
               ref={register}
               id="fName"
+              defaultValue={user ? user.name : null}
               type="text"
               label="Fisrt Name"
               name="fName"
@@ -84,6 +110,7 @@ export const OrderForm = () => {
             <Input
               ref={register}
               id="lName"
+              defaultValue={user ? user.lastName : null}
               type="text"
               label="Last Name"
               name="lName"
@@ -95,6 +122,7 @@ export const OrderForm = () => {
               id="phone"
               type="tel"
               label="Phone number"
+              defaultValue={user ? user.phone : null}
               name="phone"
               error={!!errors.phone}
               helperText={errors?.phone?.message}
@@ -106,6 +134,7 @@ export const OrderForm = () => {
               ref={register}
               id="email"
               type="email"
+              defaultValue={user ? user.email : null}
               label="Email"
               name="email"
               error={!!errors.email}
@@ -118,6 +147,7 @@ export const OrderForm = () => {
             id="address"
             type="text"
             label="Address"
+            defaultValue={user ? user.address : null}
             name="address"
             error={!!errors.address}
             helperText={errors?.address?.message}
@@ -134,7 +164,7 @@ export const OrderForm = () => {
           Place Order
         </Button>
       </form>
-      <Snackbar
+      {/* <Snackbar
         anchorOrigin={{
           vertical: 'top',
           horizontal: 'center',
@@ -146,7 +176,14 @@ export const OrderForm = () => {
         <Alert onClose={onSubmit} severity="success">
           YOUR ORDER HAS BEEN RECEIVED!
         </Alert>
-      </Snackbar>
+      </Snackbar> */}
+      <Modal
+                className={styles.modal}
+                open={open}
+                onClick={handleOrder}
+              >
+                <Alert severity="info">YOUR ORDER HAS BEEN RECEIVED!</Alert>
+              </Modal>
     </>
   );
 };

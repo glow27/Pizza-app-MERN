@@ -2,10 +2,12 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Input } from './input';
 import * as yup from 'yup';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useHistory } from 'react-router-dom';
 import { Grid, Button, Typography } from '@material-ui/core';
+import { useDispatch } from 'react-redux';
+import { loginUser } from '../../redux/actionCreator';
 
 const schema = yup.object().shape({
   email: yup.string().email('wrong format').required('email is required'),
@@ -32,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
 export const LoginForm = () => {
   const styles = useStyles();
   const history = useHistory();
+  const dispatch = useDispatch();
   const { register, errors, handleSubmit, formState } = useForm({
     mode: 'onChange',
     resolver: yupResolver(schema),
@@ -39,8 +42,25 @@ export const LoginForm = () => {
 
   const { isValid } = formState;
 
-  const onSubmit = (data) => {
-    history.push('/');
+  const onSubmit = async (data) => {
+    const {email, password} = data;
+
+    const respons = await fetch('/login', {
+      method: 'POST',
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+      headers: { 'Content-type': 'Application/json' },
+    });
+    if (respons.status === 200) {
+      const user = await respons.json();
+      console.log(user);
+      dispatch(loginUser(user));
+      return history.push('/');
+    }
+
+
   };
 
   return (

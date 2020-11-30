@@ -5,6 +5,8 @@ import {
   CART_CURRENCY,
   DEL_PIZZA,
   MAKE_ORDER,
+  LOGIN_USER,
+  LOGOUT_USER
 } from './actionTypes';
 
 export const addPizza = (pizza) => ({
@@ -33,4 +35,14 @@ export const makeOrder = () => ({
 export const cartCurrency = (value) => ({
   type: CART_CURRENCY,
   payload: value,
+});
+
+export const loginUser = (user) => ({
+  type: LOGIN_USER,
+  payload: user,
+});
+
+export const logoutUser = (user) => ({
+  type: LOGOUT_USER,
+  payload: user,
 });

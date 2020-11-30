@@ -6,7 +6,7 @@ function PrivateRoute({children, ...rest}) {
   const auth = useSelector(state => state.user.auth)
 
   return <Route {...rest}>
-   {auth ? children : <Redirect to='/login'/>}
+   {auth ? children : <Redirect to='/auth'/>}
   </Route>
 }
 

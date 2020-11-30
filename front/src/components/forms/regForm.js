@@ -75,8 +75,22 @@ export const RegForm = ({ success }) => {
 
   const { isValid } = formState;
 
-  const onSubmit = (data) => {
-    success(0);
+  const onSubmit = async (data) => {
+    const {email, fName, lName, phone, address, password} = data;
+
+    const respons = await fetch('/login/new', {
+      method: 'POST',
+      body: JSON.stringify({
+        email,
+        password,
+        name: fName,
+        lastName: lName, phone, address
+      }),
+      headers: { 'Content-type': 'Application/json' },
+    });
+    if (respons.status === 200) {
+      return success(0);
+    }
   };
 
   return (

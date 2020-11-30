@@ -60,6 +60,9 @@ export default function Pizza({ pizza }) {
   const [qty, setQty] = useState(1);
   const [open, setOpen] = useState(false);
 
+  const state = useSelector(state => state)
+  console.log(state);
+
   return (
     <Card className={classes.root}>
       <CardMedia className={classes.media} image={img} title={title} />
