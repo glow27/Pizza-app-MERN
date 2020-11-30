@@ -1,27 +1,59 @@
-import { ADD_PIZZA, EDIT_CART, CART_CURRENCY, DEL_PIZZA, MAKE_ORDER } from './actionTypes';
+import {
+  ADD_PIZZA,
+  EDIT_CART,
+  CART_CURRENCY,
+  DEL_PIZZA,
+  MAKE_ORDER,
+  CHANGE_CURRENCY,
+} from './actionTypes';
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default function(state = [], action) {
+export default function (state = { list: [], usd: true }, action) {
   switch (action.type) {
     case ADD_PIZZA:
-      const temp = state.find(el => el.title === action.payload.title);
-      if (temp) return state.map(el => {
-        if (el.title === action.payload.title) return {...el, qty: el.qty + action.payload.qty}
-        return el
-      })
-      return [...state, action.payload];
+      const temp = state.list.find((el) => el.title === action.payload.title);
+      if (temp)
+        return {
+          ...state,
+          list: state.list.map((el) => {
+            if (el.title === action.payload.title)
+              return { ...el, qty: el.qty + action.payload.qty };
+            return el;
+          }),
+        };
+      return { ...state, list: [...state.list, action.payload] };
     case EDIT_CART:
-      return state.map(el => {
-        if (el.title === action.payload.title) return {...el, qty: +action.payload.qty}
-        return el
-      })
-      case DEL_PIZZA:
-      return state.filter(el => el.title !== action.payload)
+      return {
+        ...state,
+        list: state.list.map((el) => {
+          if (el.title === action.payload.title)
+            return { ...el, qty: +action.payload.qty };
+          return el;
+        }),
+      };
     case CART_CURRENCY:
-      if (action.payload !== 'usd') return state.map(el =>  {return {...el, price: el.price*0.85}})
-      return state.map(el => {return {...el, price: el.price/0.85}})
+      if (action.payload !== 'usd')
+        return {
+          ...state,
+          list: state.list.map((el) => {
+            return { ...el, price: el.price * 0.85 };
+          }),
+        };
+      return {
+        ...state,
+        list: state.list.map((el) => {
+          return { ...el, price: el.price / 0.85 };
+        }),
+      };
+    case DEL_PIZZA:
+      return {
+        ...state,
+        list: state.list.filter((el) => el.title !== action.payload),
+      };
+    case CHANGE_CURRENCY:
+      return { ...state, usd: !state.usd };
     case MAKE_ORDER:
-      return []
+      return { ...state, list: [] };
     default:
       return state;
   }

@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react';
 import { TextField } from '@material-ui/core';
 
-export const Input = forwardRef((props, ref, children) => {
+export const Input = forwardRef((props, ref) => {
   return (
     <>
       <TextField
@@ -9,9 +9,7 @@ export const Input = forwardRef((props, ref, children) => {
         margin="normal"
         inputRef={ref}
         fullWidth
-        
         {...props}
-        {...children}
       />
     </>
   );

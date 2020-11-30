@@ -1,4 +1,3 @@
-import './App.css';
 import NavDrawer from './components/navbar';
 import Display from './components/display';
 import Auth from './components/auth';
@@ -16,11 +15,9 @@ function App() {
           <NavDrawer />
           <Switch>
             <Route path="/auth">
-              <Auth/>
+              <Auth />
             </Route>
-            <PrivateRoute path="/history">
-
-            </PrivateRoute>
+            <PrivateRoute path="/history"></PrivateRoute>
             <Route path="/order">
               <Order />
             </Route>

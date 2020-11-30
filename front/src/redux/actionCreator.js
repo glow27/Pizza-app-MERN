@@ -1,4 +1,11 @@
-import {ADD_PIZZA, EDIT_CART, CHANGE_CURRENCY, CART_CURRENCY, DEL_PIZZA, MAKE_ORDER} from './actionTypes';
+import {
+  ADD_PIZZA,
+  EDIT_CART,
+  CHANGE_CURRENCY,
+  CART_CURRENCY,
+  DEL_PIZZA,
+  MAKE_ORDER,
+} from './actionTypes';
 
 export const addPizza = (pizza) => ({
   type: ADD_PIZZA,
@@ -25,5 +32,5 @@ export const makeOrder = () => ({
 
 export const cartCurrency = (value) => ({
   type: CART_CURRENCY,
-  payload: value
+  payload: value,
 });

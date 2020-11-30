@@ -1,18 +1,16 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
 import { Input } from './input';
 import * as yup from 'yup';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-
-import { useHistory } from 'react-router-dom';
 import {
   Checkbox,
   FormControlLabel,
   Grid,
   FormHelperText,
-  Button
+  Button,
+  Typography,
 } from '@material-ui/core';
 
 const schema = yup.object().shape({
@@ -47,7 +45,7 @@ const schema = yup.object().shape({
     .bool()
     .required('The terms and conditions must be accepted.')
     .oneOf([true], 'Field must be checked'),
-    address: yup
+  address: yup
     .string()
     .min(6, 'address is too short')
     .max(50, 'input is too long')
@@ -59,20 +57,17 @@ const useStyles = makeStyles((theme) => ({
     width: '70%',
     display: 'flex',
     flexDirection: 'column',
-  
   },
-  
   confirmationCheckbox: {
     marginTop: '10px',
   },
   btn: {
-    margin: '2rem 0'
-  }
+    margin: '2rem 0',
+  },
 }));
 
-export const RegForm = ({success}) => {
+export const RegForm = ({ success }) => {
   const styles = useStyles();
-  const history = useHistory();
   const { register, errors, handleSubmit, formState } = useForm({
     mode: 'onChange',
     resolver: yupResolver(schema),
@@ -81,7 +76,7 @@ export const RegForm = ({success}) => {
   const { isValid } = formState;
 
   const onSubmit = (data) => {
-    success(0)
+    success(0);
   };
 
   return (
@@ -119,59 +114,55 @@ export const RegForm = ({success}) => {
               required
             />
           </Grid>
-          
           <Grid item xs={6}>
-          <Input
-            ref={register}
-            id="email"
-            type="email"
-            label="Email"
-            name="email"
-            error={!!errors.email}
-            helperText={errors?.email?.message}
-            required
-          />
+            <Input
+              ref={register}
+              id="email"
+              type="email"
+              label="Email"
+              name="email"
+              error={!!errors.email}
+              helperText={errors?.email?.message}
+              required
+            />
           </Grid>
-          
           <Grid item xs={6}>
-          <Input
-            ref={register}
-            id="confirmEmail"
-            type="email"
-            label="Confirm Email"
-            name="confirmEmail"
-            error={!!errors.confirmEmail}
-            helperText={errors?.confirmEmail?.message}
-            required
-          />
-            </Grid>
-          
+            <Input
+              ref={register}
+              id="confirmEmail"
+              type="email"
+              label="Confirm Email"
+              name="confirmEmail"
+              error={!!errors.confirmEmail}
+              helperText={errors?.confirmEmail?.message}
+              required
+            />
+          </Grid>
           <Grid item xs={6}>
-          <Input
-            ref={register}
-            id="password"
-            type="password"
-            label="Password"
-            name="password"
-            error={!!errors.password}
-            helperText={errors?.password?.message}
-            required
-          />
-            </Grid>
-          
+            <Input
+              ref={register}
+              id="password"
+              type="password"
+              label="Password"
+              name="password"
+              error={!!errors.password}
+              helperText={errors?.password?.message}
+              required
+            />
+          </Grid>
           <Grid item xs={6}>
-          <Input
-            ref={register}
-            id="confirmPassword"
-            type="password"
-            label="Confirm Password"
-            name="confirmPassword"
-            error={!!errors.confirmPassword}
-            helperText={errors?.confirmPassword?.message}
-            required
-          />
-            </Grid>
-            <Grid item xs={6}>
+            <Input
+              ref={register}
+              id="confirmPassword"
+              type="password"
+              label="Confirm Password"
+              name="confirmPassword"
+              error={!!errors.confirmPassword}
+              helperText={errors?.confirmPassword?.message}
+              required
+            />
+          </Grid>
+          <Grid item xs={6}>
             <Input
               ref={register}
               id="phone"
@@ -183,7 +174,7 @@ export const RegForm = ({success}) => {
               required
             />
           </Grid>
-            <Input
+          <Input
             ref={register}
             id="address"
             type="text"
@@ -195,7 +186,6 @@ export const RegForm = ({success}) => {
           />
         </Grid>
         <FormControlLabel
-          
           control={
             <Checkbox
               name="confirmation"
@@ -218,16 +208,14 @@ export const RegForm = ({success}) => {
           </Typography>
         </FormHelperText>
         <Button
-      type="submit"
-      variant="contained"
-      color="primary"
-      className={styles.btn}
-      disabled={isValid ? false : true}
-    >
-     Register
-    </Button>
-        
-        
+          type="submit"
+          variant="contained"
+          color="primary"
+          className={styles.btn}
+          disabled={isValid ? false : true}
+        >
+          Register
+        </Button>
       </form>
     </>
   );
