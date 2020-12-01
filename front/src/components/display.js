@@ -1,5 +1,6 @@
 import React from 'react';
 import Pizza from './pizza';
+import { makeStyles } from '@material-ui/core/styles';
 import chicken from '../assets/chicken-bbq.jpg';
 import cheese from '../assets/cheese.jpg';
 import dPepp from '../assets/double-pepperoni.jpg';
@@ -9,16 +10,6 @@ import mexican from '../assets/mexican.jpg';
 import meatFest from '../assets/meat-fest.jpg';
 import pepperoni from '../assets/pepperoni.jpg';
 import vegan from '../assets/vegan-veggie.jpeg';
-import { makeStyles } from '@material-ui/core/styles';
-
-const useStyles = makeStyles({
-  root: {
-   display: 'flex',
-   flexWrap: 'wrap',
-   justifyContent: 'center',
-   marginBottom: '2rem'
-  },
-});
 
 const pizzas = [
   { img: cheese, title: 'Cheese', price: 6 },
@@ -31,6 +22,16 @@ const pizzas = [
   { img: pepperoni, title: 'Pepperoni', price: 5 },
   { img: vegan, title: 'Vegan', price: 5 },
 ];
+
+const useStyles = makeStyles({
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    marginBottom: '2rem',
+    paddingTop: '11vh',
+  },
+});
 
 export default function Display() {
   const classes = useStyles();
