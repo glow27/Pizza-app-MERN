@@ -52,7 +52,7 @@ export const OrderForm = () => {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const cart = useSelector((state) => state.cart.list);
-  const user = useSelector(state => state.user)
+  const user = useSelector((state) => state.user);
   const usd = useSelector((state) => state.cart.usd);
   const { register, errors, handleSubmit, formState } = useForm({
     mode: 'onChange',
@@ -62,25 +62,23 @@ export const OrderForm = () => {
   const { isValid } = formState;
 
   const onSubmit = async (data) => {
-    if (!user) return setOpen(true);
-    
-    const respons = await fetch('/orders', {
+    if (!user.auth) return setOpen(true);
+
+    const respons = await fetch('/orders/add', {
       method: 'POST',
       body: JSON.stringify([...cart, usd]),
       headers: { 'Content-type': 'Application/json' },
-    })
+    });
 
     if (respons.status === 200) {
-      return setOpen(true)
+      return setOpen(true);
     }
-
   };
 
   const handleOrder = () => {
     dispatch(makeOrder());
-    console.log('ok');
     history.push('/');
-  }
+  };
 
   return (
     <>
@@ -177,13 +175,9 @@ export const OrderForm = () => {
           YOUR ORDER HAS BEEN RECEIVED!
         </Alert>
       </Snackbar> */}
-      <Modal
-                className={styles.modal}
-                open={open}
-                onClick={handleOrder}
-              >
-                <Alert severity="info">YOUR ORDER HAS BEEN RECEIVED!</Alert>
-              </Modal>
+      <Modal className={styles.modal} open={open} onClick={handleOrder}>
+        <Alert severity="info">YOUR ORDER HAS BEEN RECEIVED!</Alert>
+      </Modal>
     </>
   );
 };

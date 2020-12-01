@@ -1,6 +1,6 @@
 import React from 'react';
 import { changeCurrency, cartCurrency } from '../redux/actionCreator';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   Radio,
   RadioGroup,
@@ -18,6 +18,7 @@ const useStyles = makeStyles({
 export default function Currency() {
   const dispatch = useDispatch();
   const classes = useStyles();
+  const usd = useSelector((state) => state.cart.usd);
 
   return (
     <FormControl className={classes.radio}>
@@ -25,7 +26,7 @@ export default function Currency() {
         row
         aria-label="position"
         name="position"
-        defaultValue="usd"
+        defaultValue={usd ? 'usd' : 'eur'}
         onChange={(e) => {
           dispatch(changeCurrency());
           dispatch(cartCurrency(e.target.value));

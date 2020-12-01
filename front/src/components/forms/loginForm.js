@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Input } from './input';
 import * as yup from 'yup';
@@ -29,10 +29,14 @@ const useStyles = makeStyles((theme) => ({
     margin: '2rem 0',
     width: '40%',
   },
+  flash: {
+    color: 'red',
+  },
 }));
 
 export const LoginForm = () => {
   const styles = useStyles();
+  const [flash, setFlash] = useState(false);
   const history = useHistory();
   const dispatch = useDispatch();
   const { register, errors, handleSubmit, formState } = useForm({
@@ -43,9 +47,9 @@ export const LoginForm = () => {
   const { isValid } = formState;
 
   const onSubmit = async (data) => {
-    const {email, password} = data;
+    const { email, password } = data;
 
-    const respons = await fetch('/login', {
+    const respons = await fetch('/auth/login', {
       method: 'POST',
       body: JSON.stringify({
         email,
@@ -53,14 +57,12 @@ export const LoginForm = () => {
       }),
       headers: { 'Content-type': 'Application/json' },
     });
-    if (respons.status === 200) {
+    if (respons.ok) {
       const user = await respons.json();
-      console.log(user);
       dispatch(loginUser(user));
       return history.push('/');
     }
-
-
+    return setFlash(true);
   };
 
   return (
@@ -83,6 +85,7 @@ export const LoginForm = () => {
             error={!!errors.email}
             helperText={errors?.email?.message}
             required
+            onFocus={() => setFlash(false)}
           />
           <Input
             ref={register}
@@ -93,6 +96,7 @@ export const LoginForm = () => {
             error={!!errors.password}
             helperText={errors?.password?.message}
             required
+            onFocus={() => setFlash(false)}
           />
         </Grid>
         <Button
@@ -104,6 +108,9 @@ export const LoginForm = () => {
         >
           Login
         </Button>
+        {flash ? (
+          <p className={styles.flash}>Invalid email or password!</p>
+        ) : null}
       </form>
     </>
   );

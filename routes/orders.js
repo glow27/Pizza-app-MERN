@@ -4,24 +4,16 @@ import { userLogged } from '../middleware/checkAuth.js';
 
 const router = express.Router();
 
-router.post('/', userLogged, async (req, res) => {
-  console.log(req.body);
+router.post('/add', userLogged, async (req, res) => {
   const user = await User.findOne({ email: req.user.email });
-  
-  user.orders.push(req.body)
+  user.orders.push(req.body);
   await user.save();
-
   return res.end();
-  
 });
 
 router.get('/history', userLogged, async (req, res) => {
-  console.log(req.user);
   const user = await User.findOne({ email: req.user.email });
-
-  return res.json(user.orders);
-  
+  if (user) return res.json(user.orders);
 });
 
 export default router;
-

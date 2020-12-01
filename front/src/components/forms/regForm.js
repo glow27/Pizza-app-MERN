@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Input } from './input';
 import * as yup from 'yup';
@@ -64,6 +64,9 @@ const useStyles = makeStyles((theme) => ({
   btn: {
     margin: '2rem 0',
   },
+  flash: {
+    color: 'red',
+  },
 }));
 
 export const RegForm = ({ success }) => {
@@ -72,25 +75,29 @@ export const RegForm = ({ success }) => {
     mode: 'onChange',
     resolver: yupResolver(schema),
   });
+  const [flash, setFlash] = useState(false);
 
   const { isValid } = formState;
 
   const onSubmit = async (data) => {
-    const {email, fName, lName, phone, address, password} = data;
+    const { email, fName, lName, phone, address, password } = data;
 
-    const respons = await fetch('/login/new', {
+    const respons = await fetch('/auth/registration', {
       method: 'POST',
       body: JSON.stringify({
         email,
         password,
         name: fName,
-        lastName: lName, phone, address
+        lastName: lName,
+        phone,
+        address,
       }),
       headers: { 'Content-type': 'Application/json' },
     });
-    if (respons.status === 200) {
+    if (respons.ok) {
       return success(0);
     }
+    return setFlash(true);
   };
 
   return (
@@ -138,6 +145,7 @@ export const RegForm = ({ success }) => {
               error={!!errors.email}
               helperText={errors?.email?.message}
               required
+              onFocus={() => setFlash(false)}
             />
           </Grid>
           <Grid item xs={6}>
@@ -230,6 +238,11 @@ export const RegForm = ({ success }) => {
         >
           Register
         </Button>
+        {flash ? (
+          <p className={styles.flash}>
+            User with this email already exists! Try again!
+          </p>
+        ) : null}
       </form>
     </>
   );

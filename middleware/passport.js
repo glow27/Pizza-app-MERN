@@ -1,14 +1,13 @@
-// import passport from 'passport';
 import LocalStrategy from 'passport-local';
 import bcrypt from 'bcrypt';
 
 import User from '../model/user.js';
 
-LocalStrategy.Strategy;
+
 
 export default function (passport) {
   passport.use(
-    new LocalStrategy(
+    new LocalStrategy.Strategy(
       {
         usernameField: 'email',
       },
@@ -18,10 +17,10 @@ export default function (passport) {
             email: username,
           });
           if (user && (await bcrypt.compare(password, user.password))) {
-            done(null, user);
+            return done(null, user);
           } else {
             return done(null, false, {
-              message: 'password does not match!',
+              message: 'Invalid email or password.',
             });
           }
         } catch (e) {
@@ -31,16 +30,13 @@ export default function (passport) {
     )
   );
 
-  
   passport.serializeUser((user, done) => {
-    done(null, user.id);
+    return done(null, user.id);
   });
 
   passport.deserializeUser((id, done) => {
-
     User.findById(id, (err, user) => {
-     
-      done(err, user);
+      return done(err, user);
     });
   });
 }

@@ -19,7 +19,7 @@ function App() {
               <Auth />
             </Route>
             <PrivateRoute path="/history">
-              <History/>
+              <History />
             </PrivateRoute>
             <Route path="/order">
               <Order />
