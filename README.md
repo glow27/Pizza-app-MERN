@@ -4,7 +4,7 @@
 
 https://superpizza.herokuapp.com/
 
-## **Description:** application for pizza ordering with registration, order history and currencies switch.
+**Description:** application for pizza ordering with registration, order history and currencies switch.
 
 ![alt text](https://github.com/glow27/Pizza-app-MERN/blob/main/Screenshot%20from%202020-12-02%2017-39-27.png)
 
@@ -19,15 +19,18 @@ DB_KEY= // connection string to your MongoDB database
 
 ##### Install dependencies for frontend and backend
 
-``` npm i, cd front, npm i
+```
+npm i, cd front, npm i
 ```
 
 ##### Run backend
 
-``` npm start
+``` 
+npm start
 ```
 
 ##### Run fronted
 
-``` **cd front, npm start**
+``` 
+cd front, npm start
 ```
