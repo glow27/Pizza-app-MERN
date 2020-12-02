@@ -15,7 +15,7 @@ app.use('/auth', loginRouter);
 app.use('/orders', ordersRouter);
 
 app.get('/*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'front/build', 'index.html'));
+  res.sendFile(path.join(__dirname, 'front/build/index.html'));
 });
 
 const PORT = process.env.PORT || 4000;
