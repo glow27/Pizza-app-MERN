@@ -30,8 +30,8 @@ const schema = yup.object().shape({
     .oneOf([yup.ref('email'), null], 'emails must match'),
   phone: yup
     .string()
-    .min(11, 'minimum 11 digits')
-    .matches(/^[0-9]*$/, 'wrong format')
+    .min(11, '11 digits')
+    .matches(/^[0-9]*$/, '11 digits')
     .required('phone is required'),
   password: yup
     .string()
