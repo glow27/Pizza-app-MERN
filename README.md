@@ -12,21 +12,22 @@ https://superpizza.herokuapp.com/
 
 ##### Create .env file in the root directory
 
-```SESSION_KEY= // set anything
+```
+SESSION_KEY= // set anything
 DB_KEY= // connection string to your MongoDB database
 ```
 
 ##### Install dependencies for frontend and backend
 
-```**npm i, cd front, npm i**
+``` npm i, cd front, npm i
 ```
 
 ##### Run backend
 
-```**npm start**
+``` npm start
 ```
 
 ##### Run fronted
 
-```**cd front, npm start**
+``` **cd front, npm start**
 ```
