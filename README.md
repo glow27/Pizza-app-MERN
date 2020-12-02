@@ -6,6 +6,8 @@ https://superpizza.herokuapp.com/
 
 **Description:** application for pizza ordering with registration, order history and currencies switch.
 
+***
+
 ![alt text](https://github.com/glow27/Pizza-app-MERN/blob/main/Screenshot%20from%202020-12-02%2017-39-27.png)
 
 ### To start locally:
