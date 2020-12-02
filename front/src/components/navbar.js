@@ -31,7 +31,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function NavDrawer() {
+export default function Navbar() {
   const classes = useStyles();
   const [cartOpen, setCartOpen] = useState(false);
   const history = useHistory();

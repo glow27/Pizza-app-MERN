@@ -34,6 +34,9 @@ function TabPanel(props) {
   );
 }
 
+/**authentication page with two tabs:
+ * registration form and login form
+ */
 export default function Auth() {
   const [value, setValue] = useState(0);
   const classes = useStyles();

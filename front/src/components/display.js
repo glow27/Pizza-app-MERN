@@ -33,6 +33,7 @@ const useStyles = makeStyles({
   },
 });
 
+/**main page */
 export default function Display() {
   const classes = useStyles();
 

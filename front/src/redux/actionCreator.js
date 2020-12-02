@@ -2,7 +2,7 @@ import {
   ADD_PIZZA,
   EDIT_CART,
   CHANGE_CURRENCY,
-  CART_CURRENCY,
+  CALCULATE_CURRENCY,
   DEL_PIZZA,
   MAKE_ORDER,
   LOGIN_USER,
@@ -32,8 +32,8 @@ export const makeOrder = () => ({
   type: MAKE_ORDER,
 });
 
-export const cartCurrency = (value) => ({
-  type: CART_CURRENCY,
+export const calculateCurrency = (value) => ({
+  type: CALCULATE_CURRENCY,
   payload: value,
 });
 

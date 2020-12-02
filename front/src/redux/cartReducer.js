@@ -1,7 +1,7 @@
 import {
   ADD_PIZZA,
   EDIT_CART,
-  CART_CURRENCY,
+  CALCULATE_CURRENCY,
   DEL_PIZZA,
   MAKE_ORDER,
   CHANGE_CURRENCY,
@@ -31,7 +31,7 @@ export default function (state = { list: [], usd: true }, action) {
           return el;
         }),
       };
-    case CART_CURRENCY:
+    case CALCULATE_CURRENCY:
       if (action.payload !== 'usd')
         return {
           ...state,

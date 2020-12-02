@@ -30,8 +30,8 @@ const schema = yup.object().shape({
     .oneOf([yup.ref('email'), null], 'emails must match'),
   phone: yup
     .string()
-    .length(11, 'wrong format')
-    .matches(/[0-9]/, 'wrong format')
+    .min(11, 'minimum 11 digits')
+    .matches(/^[0-9]*$/, 'wrong format')
     .required('phone is required'),
   password: yup
     .string()
@@ -62,13 +62,16 @@ const useStyles = makeStyles((theme) => ({
     marginTop: '10px',
   },
   btn: {
-    margin: '2rem 0',
+    marginTop: '1rem',
   },
   flash: {
     color: 'red',
   },
 }));
 
+/**if registration successful
+ *  @prop success changes authentication page state to login form tab
+  */
 export const RegForm = ({ success }) => {
   const styles = useStyles();
   const { register, errors, handleSubmit, formState } = useForm({

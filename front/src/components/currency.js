@@ -1,5 +1,5 @@
 import React from 'react';
-import { changeCurrency, cartCurrency } from '../redux/actionCreator';
+import { changeCurrency, calculateCurrency } from '../redux/actionCreator';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Radio,
@@ -15,6 +15,7 @@ const useStyles = makeStyles({
   },
 });
 
+/**changes currency of the app */
 export default function Currency() {
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -29,7 +30,7 @@ export default function Currency() {
         defaultValue={usd ? 'usd' : 'eur'}
         onChange={(e) => {
           dispatch(changeCurrency());
-          dispatch(cartCurrency(e.target.value));
+          dispatch(calculateCurrency(e.target.value));
         }}
       >
         <FormControlLabel

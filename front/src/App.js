@@ -1,4 +1,4 @@
-import NavDrawer from './components/navbar';
+import Navbar from './components/navbar';
 import Display from './components/display';
 import Auth from './components/auth';
 import { store } from './redux/store';
@@ -13,7 +13,7 @@ function App() {
     <>
       <Provider store={store}>
         <BrowserRouter>
-          <NavDrawer />
+          <Navbar />
           <Switch>
             <Route path="/auth">
               <Auth />

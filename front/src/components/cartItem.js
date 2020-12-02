@@ -25,7 +25,7 @@ export default function CartItem({ pizza }) {
         <HighlightOffOutlinedIcon fontSize="small" />
       </IconButton>
       <ListItemText
-        primary={`${pizza.title} ${pizza.price} ${usd ? '$' : '€'}`}
+        primary={`${pizza.title} ${pizza.price.toFixed(2)} ${usd ? '$' : '€'}`}
       />
       <TextField
         size="small"

@@ -28,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+/**a card of an order from history */
 function SimpleCard({ info }) {
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
@@ -57,6 +58,7 @@ function SimpleCard({ info }) {
   );
 }
 
+/**orders history page */
 export default function History() {
   const classes = useStyles();
   const [orders, setOrders] = useState([]);

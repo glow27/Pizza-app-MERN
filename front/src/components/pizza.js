@@ -51,6 +51,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+/**a card of a single pizza on the main page */
 export default function Pizza({ pizza }) {
   const classes = useStyles();
   const { img, title } = pizza;

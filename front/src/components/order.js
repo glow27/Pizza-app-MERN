@@ -21,6 +21,7 @@ const useStyles = makeStyles({
   },
 });
 
+/**order page */
 export default function Order() {
   const classes = useStyles();
   const cart = useSelector((state) => state.cart.list);
