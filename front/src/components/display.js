@@ -1,15 +1,15 @@
 import React from 'react';
 import Pizza from './pizza';
 import { makeStyles } from '@material-ui/core/styles';
-import chicken from '../assets/chicken-bbq.jpg';
-import cheese from '../assets/cheese.jpg';
-import dPepp from '../assets/double-pepperoni.jpg';
-import hawaiian from '../assets/hawaiian.jpg';
-import margherita from '../assets/margherita.jpeg';
-import mexican from '../assets/mexican.jpg';
-import meatFest from '../assets/meat-fest.jpg';
-import pepperoni from '../assets/pepperoni.jpg';
-import vegan from '../assets/vegan-veggie.jpeg';
+import chicken from '../assets/BuffaloChicken.jpg';
+import cheese from '../assets/LowGlutenCheese.jpg';
+import dPepp from '../assets/TheMeats.jpg';
+import hawaiian from '../assets/Hawaiian.jpg';
+import margherita from '../assets/Supreme.jpg';
+import mexican from '../assets/Mexican.jpg';
+import meatFest from '../assets/TheMeats.jpg';
+import pepperoni from '../assets/Sausage.jpg';
+import vegan from '../assets/VeganVeggie.jpg';
 
 const pizzas = [
   { img: cheese, title: 'Cheese', price: 6 },

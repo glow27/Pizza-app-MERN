@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
   textField: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
-    width: '4rem',
+    width: '4.5rem',
   },
   actions: {
     display: 'flex',
