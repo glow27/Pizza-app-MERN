@@ -18,7 +18,9 @@ router.post('/login', userLoggedOut, async (req, res, next) => {
       if (err) {
         return next(err);
       }
-      return res.json(user);
+      const { name, lastName, email, phone, address, orders } = user;
+      const userInfo = { name, lastName, email, phone, address, orders };
+      return res.json(userInfo);
     });
   })(req, res, next);
 });
