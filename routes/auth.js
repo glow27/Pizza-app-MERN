@@ -43,7 +43,9 @@ router.post('/registration', userLoggedOut, async (req, res) => {
 });
 
 router.get('/user', userLogged, (req, res) => {
-  return res.json(req.user);
+  const { name, lastName, email, phone, address, orders } = req.user;
+  const user = { name, lastName, email, phone, address, orders };
+  return res.json(user);
 });
 
 router.get('/logout', (req, res) => {

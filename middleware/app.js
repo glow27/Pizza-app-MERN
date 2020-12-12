@@ -28,20 +28,20 @@ const middleWare = (app) => {
   const cookieExpirationDate = new Date();
 
   cookieExpirationDate.setDate(cookieExpirationDate.getDate() + 1);
-
+  app.set('trust proxy', 1);
   app.use(
     session({
       store: new MongoStore({
         mongooseConnection: mongoose.connection,
         secret: 'squirrel',
-        ttl: 10 * 60,
+        ttl: 60 * 60,
       }),
       secret: process.env.SESSION_KEY,
-      resave: true,
+      resave: false,
       saveUninitialized: false,
       name: 'user_sid',
       cookie: {
-        secure: false,
+        secure: true,
         expires: cookieExpirationDate,
       },
     })
